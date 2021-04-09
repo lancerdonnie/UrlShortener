@@ -1,0 +1,41 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "test": "jest --forceExit --detectOpenHandles  --watch --testTimeout=10000",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "joi": "^17.3.0",
+    "mysql2": "^2.2.5",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "^0.2.29"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.8",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.6",
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  }
+}

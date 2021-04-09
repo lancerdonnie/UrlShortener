@@ -1,0 +1,3 @@
+const getUrl = () => {};
+
+export { getUrl };
