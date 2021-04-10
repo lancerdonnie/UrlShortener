@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Shortener</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: rgb(23, 42, 58);
+        color: white;
+        font-family: 'Open Sans', sans-serif;
+      }
+      [v-cloak] {
+        display: none;
+      }
+      .deep {
+        background-color: rgb(16 34 47);
+      }
+    </style>
+  </head>
+  <body class="h-screen w-screen flex items-center justify-center">
+    <div id="app">
+      <div v-cloak>
+        <h2 class="text-xl">Oops you must have entered the wrong Short Url</h2>
+        <form @submit.prevent="handleSubmit" class="flex justify-center mt-10">
+          <div class="flex items-center">
+            <input
+              v-model="url"
+              type="text"
+              placeholder="Enter url here"
+              class="px-5 py-3 focus:outline-none deep"
+              style="color: coral"
+            />
+            <button
+              type="submit"
+              class="px-3 h-full flex items-center cursor-pointer focus:outline-none"
+              style="background-color: coral"
+            >
+              GO
+            </button>
+          </div>
+        </form>
+        <div class="mt-5 text-center text-xs">
+          View Graphiql
+          <a :href="graphiql" style="color: forestgreen" x target="_blank"
+            >here</a
+          >
+        </div>
+        <div v-if="res" class="text-center mt-4">
+          <a :href="res" style="color: coral" target="_blank">{{res}}</a>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const App = {
+        data() {
+          return {
+            message: 'Hello Vue!!',
+            graphiql: window.location.origin + '/graphql',
+            url: '',
+            res: '',
+          };
+        },
+        methods: {
+          async handleSubmit(e) {
+            fetch('/graphql', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                query: `{shortenURL(url: "${this.url}")}`,
+              }),
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                this.res = 'http://' + res.data.shortenURL;
+                this.url = '';
+              })
+              .catch((e) => console.error(e.message));
+          },
+        },
+      };
+
+      const app = Vue.createApp(App).mount('#app');
+    </script>
+  </body>
+</html>

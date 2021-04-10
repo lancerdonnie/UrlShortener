@@ -1,22 +1,38 @@
-import type { IResponse, TypedRequest } from '../types';
 import type { Response, Request } from 'express';
+import type Core from '../core';
 import { Router } from 'express';
-import { validateReservation } from './middlewares/validate';
-import asyncHandler from 'express-async-handler';
-import { ErrorHandler } from '../core/Error';
+import { join } from 'path';
 
 const router = Router();
 
-//get all reservations
-router.get(
-  '/',
-  asyncHandler(async (_, res: Response<IResponse>) => {
-    //     const reservations = await reservationRepo.getReservations();
-    //     res.json({
-    //       status: 'success',
-    //       data: reservations,
-    //     });
-  })
-);
+export default ({ core }: { core: Core }) => {
+  router.get('/*', async (req: Request, res: Response) => {
+    const shortId = req.params[0];
+    try {
+      const url = await core.getUrl(shortId);
+      return res.redirect(302, 'http://' + url!.url);
+    } catch (_) {
+      return res.sendFile(join(__dirname, '../www/index.html'));
+    }
+  });
+  return router;
+};
 
-module.exports = router;
+// export class UrlController{
+
+// }
+
+// const router = Router();
+
+// //Catch all route - Shorten Url
+// router.get('/*', async (req: Request, res: Response) => {
+//   const shortId = req.params[0];
+//   try {
+//     const url = await CgetUrl(shortId);
+//     return res.redirect(302, 'http://' + url!.url);
+//   } catch (_) {
+//     return res.sendFile(join(__dirname, '../www/index.html'));
+//   }
+// });
+
+// export default router;
