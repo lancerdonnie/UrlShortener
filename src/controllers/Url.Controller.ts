@@ -1,10 +1,9 @@
 import type { IResponse, TypedRequest } from '../types';
 import type { Response, Request } from 'express';
-import type { ReservationType } from '../entity/Reservation';
 import { Router } from 'express';
 import { validateReservation } from './middlewares/validate';
 import asyncHandler from 'express-async-handler';
-import { ErrorHandler } from './Error';
+import { ErrorHandler } from '../core/Error';
 
 const router = Router();
 

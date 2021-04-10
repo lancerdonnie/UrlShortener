@@ -1,7 +1,7 @@
 import type { TypedResponse } from '../../types';
 import Joi from 'joi';
 import { Request, NextFunction } from 'express';
-import { ErrorHandler } from '../Error';
+import { ErrorHandler } from '../../core/Error';
 
 const reservationSchema = Joi.object({
   reservation_id: Joi.number().required(),
