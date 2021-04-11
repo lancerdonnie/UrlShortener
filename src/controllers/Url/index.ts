@@ -1,5 +1,5 @@
 import type { Response, Request } from 'express';
-import type Core from '../core';
+import type Core from '../../core';
 import { Router } from 'express';
 import { join } from 'path';
 
@@ -12,7 +12,7 @@ export default ({ core }: { core: Core }) => {
       const url = await core.getUrl(shortId);
       return res.redirect(302, 'http://' + url!.url);
     } catch (_) {
-      return res.sendFile(join(__dirname, '../www/index.html'));
+      return res.sendFile(join(__dirname, '../../www/index.html'));
     }
   });
   return router;

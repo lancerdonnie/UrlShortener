@@ -1,13 +1,26 @@
 import { createContainer, asFunction, asValue, asClass } from 'awilix';
-import makeApp from '../app';
+import makeApp from '../../app';
 import request from 'supertest';
-import { Router } from 'express';
-import Core from '../core';
+import UrlController from '.';
+import Core from '../../core';
 
-describe('', () => {
+describe('Url Controller', () => {
   const sId = 'abc123';
   const url = 'google.com';
-
+  const obj = {
+    url,
+    url_id: sId,
+  };
+  const Db = {
+    url: {
+      findOne: async (shortId: string) => {
+        if (shortId === sId) return obj;
+        throw Error;
+      },
+      create: () => {},
+      save: () => {},
+    },
+  };
   const setupDi = () => {
     const container = createContainer();
     class UrlRepo {
@@ -24,9 +37,10 @@ describe('', () => {
       createShortId = () => {};
     }
     container.register({
+      db: asValue(Db),
       repo: asClass(UrlRepo),
       core: asClass(Core),
-      UrlController: asFunction(() => Router()),
+      UrlController: asFunction(UrlController),
       createConn: asValue(() => {}),
     });
 
@@ -38,15 +52,19 @@ describe('', () => {
 
   afterAll(container.dispose);
 
-  test('shortenURL', async () => {
+  test('any url other then /graphql returns redirect', async () => {
     await agent
-      .post('/graphql')
-      .send({ query: `{shortenURL(url: "${url}")}` })
-      .expect('Content-Type', /json/)
+      .get('/' + sId)
+      .expect(302)
+      .expect('Location', 'http://');
+  });
+
+  test('bad shortid redirects to index.html', async () => {
+    await agent
+      .get('/def2ww')
       .expect(200)
       .then((res) => {
-        expect(res.body.data.shortenURL).toBeDefined;
-        expect(res.body.errors).toBeUndefined;
+        expect(res.text).toContain('html');
       });
   });
 });

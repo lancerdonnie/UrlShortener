@@ -11,7 +11,7 @@ describe('Core', () => {
       shortId === sId
         ? {
             url: '',
-            url_id: 'abc123',
+            url_id: sId,
           }
         : undefined;
     addUrl = () => {};
