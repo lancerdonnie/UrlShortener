@@ -1,5 +1,5 @@
 import type { Express } from 'express';
-import type { IContainer } from 'src/types';
+import type { IContainer } from '../types';
 import expressLoader from './express';
 
 export default async ({

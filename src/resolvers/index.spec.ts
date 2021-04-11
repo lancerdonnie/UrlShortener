@@ -3,6 +3,7 @@ import makeApp from '../app';
 import request from 'supertest';
 import { Router } from 'express';
 import Core from '../core';
+import { GRAPHQL_PATH } from '../Constants';
 
 describe('', () => {
   const sId = 'abc123';
@@ -15,7 +16,7 @@ describe('', () => {
         shortId === sId
           ? {
               url: '',
-              url_id: sId,
+              short_id: sId,
             }
           : undefined;
       addUrl = () => {};
@@ -40,7 +41,7 @@ describe('', () => {
 
   test('shortenURL', async () => {
     await agent
-      .post('/graphiql')
+      .post(GRAPHQL_PATH)
       .send({ query: `{shortenURL(url: "${url}")}` })
       .expect('Content-Type', /json/)
       .expect(200)

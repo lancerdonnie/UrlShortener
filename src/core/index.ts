@@ -1,5 +1,5 @@
 import type { ICradle } from '../types';
-import { SHORT_VALUES, ERRORS } from '../core/Constants';
+import { SHORT_VALUES, ERRORS } from '../Constants';
 
 export default class Core {
   constructor(opts: ICradle) {
@@ -26,7 +26,7 @@ export default class Core {
     }
     const shortId = await this.createShortId();
     await this.repo.addUrl(shortId, url);
-    return this.getShortId(hostName);
+    return this.getShortId(hostName, shortId);
   };
 
   getShortId = async (hostName: string, shortId?: string) => {

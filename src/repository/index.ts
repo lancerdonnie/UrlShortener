@@ -1,4 +1,4 @@
-import { ERRORS } from '../core/Constants';
+import { ERRORS } from '../Constants';
 import type { ICradle } from '../types';
 import { Url } from '../entity/Url';
 
@@ -15,10 +15,10 @@ export default class UrlRepo {
     });
   };
 
-  public addUrl = async (shortId: string, url: string) => {
+  public addUrl = async (shortId: string, fullUrl: string) => {
     const newUrl = new Url();
-    newUrl.url_id = shortId;
-    newUrl.url = url;
+    newUrl.short_id = shortId;
+    newUrl.full_url = fullUrl;
     try {
       await this.db.url.create(newUrl);
       await this.db.url.save(newUrl);

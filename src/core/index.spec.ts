@@ -1,6 +1,6 @@
 import { createContainer, asClass } from 'awilix';
 import Core from '.';
-import { ERRORS } from './Constants';
+import { ERRORS } from '../Constants';
 
 describe('Core', () => {
   const hostName = `http://urlshortener.com`;
@@ -11,7 +11,7 @@ describe('Core', () => {
       shortId === sId
         ? {
             url: '',
-            url_id: sId,
+            short_id: sId,
           }
         : undefined;
     addUrl = () => {};
@@ -85,7 +85,7 @@ describe('Core', () => {
   test('getUrl returns url for correct shortid', async () => {
     await expect(core.getUrl(sId)).resolves.toMatchObject({
       url: '',
-      url_id: sId,
+      short_id: sId,
     });
   });
 });

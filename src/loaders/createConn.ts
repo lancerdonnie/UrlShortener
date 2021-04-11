@@ -5,7 +5,7 @@ const { createConnection } = require('typeorm');
 const createConn = async () => {
   try {
     await createConnection();
-    console.log('Database Connected');
+    console.log('\x1b[35m', 'Database Connected');
   } catch (error) {
     console.error(error);
     // throw error;

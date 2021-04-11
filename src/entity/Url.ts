@@ -1,4 +1,4 @@
-import type { GenericType } from 'src/types';
+import type { GenericType } from '../types';
 import {
   Entity,
   BaseEntity,
@@ -9,16 +9,17 @@ import {
 } from 'typeorm';
 
 export interface UrlType extends GenericType {
-  url_id: string;
+  short_id: string;
+  full_url: string;
 }
 
 @Entity()
 export class Url extends BaseEntity implements UrlType {
   @PrimaryColumn()
-  url_id: string;
+  short_id: string;
 
   @Column()
-  url: string;
+  full_url: string;
 
   @CreateDateColumn()
   created_date: Date;

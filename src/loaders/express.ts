@@ -1,10 +1,11 @@
 import type { Express } from 'express';
-import type { IContainer } from 'src/types';
+import type { IContainer } from '../types';
 import { json } from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UrlResolver } from '../resolvers';
+import { GRAPHQL_PATH } from '../Constants';
 
 export default async ({
   app,
@@ -31,7 +32,7 @@ export default async ({
     playground: true,
   });
 
-  apolloServer.applyMiddleware({ app, path: '/graphiql' });
+  apolloServer.applyMiddleware({ app, path: GRAPHQL_PATH });
 
   app.use(container.cradle.UrlController);
 };

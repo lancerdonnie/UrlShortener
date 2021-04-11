@@ -8,8 +8,8 @@ describe('Url Controller', () => {
   const sId = 'abc123';
   const url = 'google.com';
   const obj = {
-    url,
-    url_id: sId,
+    full_url: url,
+    short_id: sId,
   };
   const Db = {
     url: {
@@ -24,23 +24,17 @@ describe('Url Controller', () => {
   const setupDi = () => {
     const container = createContainer();
     class UrlRepo {
-      checkShortId = (shortId: string) =>
-        shortId === sId
-          ? {
-              url: '',
-              url_id: sId,
-            }
-          : undefined;
+      checkShortId = (shortId: string) => (shortId === sId ? obj : undefined);
       addUrl = () => {};
       getShortId = () => {};
       isValidUrl = () => {};
       createShortId = () => {};
     }
     container.register({
-      db: asValue(Db),
       repo: asClass(UrlRepo),
       core: asClass(Core),
       UrlController: asFunction(UrlController),
+      db: asValue(Db),
       createConn: asValue(() => {}),
     });
 
@@ -56,7 +50,7 @@ describe('Url Controller', () => {
     await agent
       .get('/' + sId)
       .expect(302)
-      .expect('Location', 'http://');
+      .expect('Location', 'http://' + url);
   });
 
   test('bad shortid redirects to index.html', async () => {

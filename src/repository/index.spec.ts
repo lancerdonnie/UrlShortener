@@ -5,7 +5,7 @@ describe('Repository', () => {
   const sId = 'abc123';
   const obj = {
     url: '',
-    url_id: sId,
+    short_id: sId,
   };
   const Db = {
     url: {
