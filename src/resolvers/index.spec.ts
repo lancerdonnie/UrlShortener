@@ -40,7 +40,7 @@ describe('', () => {
 
   test('shortenURL', async () => {
     await agent
-      .post('/graphql')
+      .post('/graphiql')
       .send({ query: `{shortenURL(url: "${url}")}` })
       .expect('Content-Type', /json/)
       .expect(200)

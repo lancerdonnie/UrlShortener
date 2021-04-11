@@ -52,7 +52,7 @@ describe('Url Controller', () => {
 
   afterAll(container.dispose);
 
-  test('any url other then /graphql returns redirect', async () => {
+  test('any url other then /graphiql returns redirect', async () => {
     await agent
       .get('/' + sId)
       .expect(302)

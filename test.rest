@@ -1,0 +1,5 @@
+###
+POST http://localhost:5000/graphiql HTTP/1.1
+Content-Type: application/json
+
+{"query":"{shortenURL(url: \"google.com\")}"}

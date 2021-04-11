@@ -27,9 +27,11 @@ export default async ({
       repo: container.cradle.repo,
       core: container.cradle.core,
     }),
+    introspection: true,
+    playground: true,
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, path: '/graphiql' });
 
   app.use(container.cradle.UrlController);
 };
