@@ -8,7 +8,8 @@ module.exports = {
   synchronize: true,
   // logging: process.env.NODE_ENV !== 'production',
   logging: false,
-  entities: ['{dist,src}/entity/*{.ts,.js}'],
+  // entities: ['{dist,src}/entity/*{.ts,.js}'],
+  entities: ['dist/entity/*{.ts,.js}'],
   migrations: ['dist/migration/**/*.js'],
   subscribers: ['dist/subscriber/**/*.js'],
   cli: {
