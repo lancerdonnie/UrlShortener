@@ -6,4 +6,5 @@ export const ERRORS = {
     INVALID_URL: 'INVALID_URL',
     NOT_FOUND_URL: 'NOT_FOUND_URL',
   },
+  SERVER_ERROR: 'SERVER ERROR',
 };

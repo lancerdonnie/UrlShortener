@@ -1,7 +1,6 @@
 import type { Express } from 'express';
 import type { IContainer } from 'src/types';
 import expressLoader from './express';
-import { createConn } from './createConn';
 
 export default async ({
   app,
@@ -11,6 +10,6 @@ export default async ({
   container: IContainer;
 }) => {
   expressLoader({ app, container });
-  await createConn();
+  await container.cradle.createConn();
   return app;
 };

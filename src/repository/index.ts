@@ -1,9 +1,17 @@
+import { ERRORS } from '../core/Constants';
+import type { ICradle } from '../types';
 import { Url } from '../entity/Url';
 
 export default class UrlRepo {
+  db;
+
+  constructor({ db }: ICradle) {
+    this.db = db;
+  }
+
   public checkShortId = async (shortId: string) => {
-    return await Url.findOne(shortId).catch(() => {
-      throw new Error('Server Error');
+    return await this.db.url.findOne(shortId).catch(() => {
+      throw new Error(ERRORS.SERVER_ERROR);
     });
   };
 
@@ -12,8 +20,8 @@ export default class UrlRepo {
     newUrl.url_id = shortId;
     newUrl.url = url;
     try {
-      await Url.create(newUrl);
-      await Url.save(newUrl);
+      await this.db.url.create(newUrl);
+      await this.db.url.save(newUrl);
     } catch (_) {
       throw new Error('Server Error');
     }

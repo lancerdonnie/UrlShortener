@@ -9,6 +9,6 @@ export default class UrlResolver {
     @Arg('url') url: string,
     @Ctx() { req, core }: Context
   ): Promise<string> {
-    return Promise.resolve(core.addUrlToDatabase(url, req.headers.host ?? ''));
+    return core.addUrlToDatabase(url, req.headers.host ?? '');
   }
 }
